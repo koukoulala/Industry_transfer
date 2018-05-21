@@ -1,0 +1,10 @@
+# git ignore files
+.DS_Store
+*.pyc
+log
+*.log
+*.out
+.idea
+.idea/
+*__init__.py
+!.gitignore
