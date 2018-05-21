@@ -252,7 +252,7 @@
 
         d3.timer(function(elapsed){
             //console.log(elapsed);
-            if(~~(elapsed % 2000) < 10){
+            if(elapsed % 2000 < 10){
                 for (var key in city_from){
                     if(key === '北京'){
                         for(var key_to in from_beijing){

@@ -42,7 +42,7 @@ var svg = d3.select("svg").style("background","white"),
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("Beijing.csv",function(error,data){
+d3.csv("./data/Beijing.csv",function(error,data){
   if(error)
     console.log(error);
 
@@ -130,7 +130,7 @@ d3.csv("Beijing.csv",function(error,data){
           });
 
   d3.select("#my_select").on("click",function(){
-    var selected_province = this.options[my_select.selectedIndex].text+".csv";
+    var selected_province = "./data/"+this.options[my_select.selectedIndex].text+".csv";
     d3.csv(selected_province,function(error,data){
       if(error)
         console.log(error);
