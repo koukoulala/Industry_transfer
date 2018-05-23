@@ -49,13 +49,14 @@ class TaiMeiTiSearch(object):
                             item_ins["date"]=item_ins["date"][-17:]
                             result_list["result_list"].append(item_ins)
                             # 把title和abstract写入文件。其他内容可以留作扩展
-                            f = open("data/taimeiti/result.txt", 'a')
+                            f = open("data/first/shanghai.txt", 'a')
                             f.write(item_ins['title'])
                             f.write(item_ins['abstract'])
                         except BaseException as e:
                             logging.error("Parse Taimeiti result error. ErrorMsg: %s" % str(e))
                     next_page = bs_obj.find("p", class_="load-more load-post")
                     if next_page:
+                        print("yes")
                         url = next_page.get("href")
                     else:
                         url = ""
@@ -99,7 +100,7 @@ class TaiMeiTiSearch(object):
                             item_ins["date"] = result['human_time_published']
                             result_list["result_list"].append(item_ins)
                             # 把title和abstract写入文件。其他内容可以留作扩展
-                            f = open("data/taimeiti/result.txt", 'a')
+                            f = open("data/third/guangzhou.txt", 'a')
                             f.write(item_ins['title'])
                             f.write(item_ins['abstract'])
                         except BaseException as e:
@@ -116,9 +117,10 @@ class TaiMeiTiSearch(object):
 
 
 if __name__ == "__main__":
-    #url_list = TaiMeiTiSearch.search("上海", search_page=3)    # 已经测试过了,运行正常
-    #print(url_list["result_list"])
-
-    url_list = TaiMeiTiSearch.search_page("北京", page=1)  # 已经测试过了,运行正常
-    for t in url_list["result_list"]:
-        print(t)
+    #url_list = TaiMeiTiSearch.search("上海 转移", search_page=5)    # 已经测试过了,运行正常
+    #for t in url_list["result_list"]:
+    #    print(t)
+    for i in range(1, 10):
+        url_list = TaiMeiTiSearch.search_page("广州 服务业 转移", page=i)  # 已经测试过了,运行正常
+        for t in url_list["result_list"]:
+            print(t)

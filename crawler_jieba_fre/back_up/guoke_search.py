@@ -47,7 +47,7 @@ class GuokeSearch(object):
                             item_ins["date"]=re.search(r"(\d{4}-\d{2}-\d{2})",item_ins["date"]).group(0)
                             result_list["result_list"].append(item_ins)
                             #把title和abstract写入文件。其他内容可以留作扩展
-                            f = open("data/guoke/result.txt", 'a')
+                            f = open("data/first/guangzhou.txt", 'a')
                             f.write(item_ins['title'])
                             f.write(item_ins['abstract'])
                         except BaseException as e:
@@ -64,7 +64,8 @@ class GuokeSearch(object):
 
 
 if __name__ == "__main__":
-    url_list = GuokeSearch.search_page("第一产业 北京", page=1)  # 已经测试过了,运行正常
-    # print(url_list["result_list"])
-    for t in url_list["result_list"]:
-        print(t)
+    for i in range(1, 10):
+        url_list = GuokeSearch.search_page("广州 第一产业 转移", page=i)  # 已经测试过了,运行正常
+        # print(url_list["result_list"])
+        for t in url_list["result_list"]:
+            print(t)

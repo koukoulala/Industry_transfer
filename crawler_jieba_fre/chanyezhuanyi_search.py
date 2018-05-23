@@ -10,7 +10,7 @@ import re
 
 class chanyeSearch(object):
 
-    search_page_url="http://www.cinic.org.cn/index.php?m=search&c=index&a=init&typeid=53&siteid=1&q={}&page={}"
+    search_page_url="http://cyzy.miit.gov.cn/search/node/{}?page={}"
 
     item = {"title": None, "abstract": None, "link": None, "date": ""}
 
@@ -34,22 +34,22 @@ class chanyeSearch(object):
                     #print(r.text)
                     bs_obj = BeautifulSoup(r.content, "html.parser")
                     # 如果一个页面的class属性为rb, 则此链接点击进去后不是一个单独的与页面,此处记录一下即可.
-                    result_links = bs_obj.find("ul", class_="imgtxtList3").findAll("li")
+                    result_links = bs_obj.find("ol", class_="search-results node-results").findAll("li")
                     for result in result_links:
                         try:
                             item_ins = deepcopy(chanyeSearch.item)
                             title_node = result.find("h3")
                             item_ins['link'] =title_node.find("a").get("href")
                             item_ins['title'] = title_node.find("a").get_text()
-                            item_ins['abstract'] = result.find("span").get_text()
-                            item_ins["date"] = result.find("span", class_="sp2").get_text()
+                            item_ins['abstract'] = result.find("p",class_="search-snippet").get_text()
+                            #item_ins["date"] = result.find("span", class_="sp2").get_text()
                             result_list["result_list"].append(item_ins)
                             # 把title和abstract写入文件。其他内容可以留作扩展
-                            f = open("data/chanyejingji/result.txt", 'a')
+                            f = open("data/third/beijing.txt", 'a')
                             f.write(item_ins['title'])
                             f.write(item_ins['abstract'])
                         except BaseException as e:
-                            logging.error("Parse 产业经济 result error. ErrorMsg: %s" % str(e))
+                            logging.error("Parse 产业转移 result error. ErrorMsg: %s" % str(e))
                     break
                 else:
                     failure += 2
@@ -57,12 +57,13 @@ class chanyeSearch(object):
             if failure >= 10:
                 logging.warning('search failed: %s' % url)
         except BaseException as e:
-            logging.error("Get 产业经济 search result error. ErrorMsg: %s" % str(e))
+            logging.error("Get 产业转移 search result error. ErrorMsg: %s" % str(e))
         return result_list
 
 
 if __name__ == "__main__":
-    url_list = chanyeSearch.search_page("转移", page=2)  # 已经测试过了,运行正常
-    # print(url_list["result_list"])
-    for t in url_list["result_list"]:
-        print(t)
+    for i in range(1, 3):
+        url_list = chanyeSearch.search_page("北京 服务业 转移", page=i)  # 已经测试过了,运行正常
+        # print(url_list["result_list"])
+        for t in url_list["result_list"]:
+            print(t)

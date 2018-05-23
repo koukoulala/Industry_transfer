@@ -45,6 +45,10 @@ class diyiwenkuSearch(object):
                             item_ins["date"] = result.find("span", class_="c-showurl").get_text()
                             item_ins["date"] = re.search(r"(\d{4}-\d{1,2}-\d{1,2})", item_ins["date"]).group(0)
                             result_list["result_list"].append(item_ins)
+                            # 把title和abstract写入文件。其他内容可以留作扩展
+                            f = open("data/third/guangzhou.txt", 'a')
+                            f.write(item_ins['title'])
+                            f.write(item_ins['abstract'])
                         except BaseException as e:
                             logging.error("Parse 第一文库网 result error. ErrorMsg: %s" % str(e))
                     break
@@ -59,7 +63,8 @@ class diyiwenkuSearch(object):
 
 
 if __name__ == "__main__":
-    url_list = diyiwenkuSearch.search_page("数据", page=2)  # 已经测试过了,运行正常
-    # print(url_list["result_list"])
-    for t in url_list["result_list"]:
-        print(t)
+    for i in range(1, 10):
+        url_list = diyiwenkuSearch.search_page("广州 服务业 转移", page=i)  # 已经测试过了,运行正常
+        # print(url_list["result_list"])
+        for t in url_list["result_list"]:
+            print(t)
