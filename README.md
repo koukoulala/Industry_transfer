@@ -10,7 +10,7 @@
 			>d3.v4.min.js
 			>map data:china.json，中国地图的数据
 
-1、Stacked-to-Grouped Bars
+1、Stacked-to-Grouped Bars 
 	要添加数据的话要和我用到的数据格式相同：数据的编码格式需要是utf-8，数值间的间隔用','，可以用notepad++转换
 
 2、ChinaMap

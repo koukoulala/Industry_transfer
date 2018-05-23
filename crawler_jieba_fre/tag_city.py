@@ -23,7 +23,6 @@ def set_city(city_path,stop_list):
         for j in range(0, len(tags)):
             if tags[j] not in stop_list:
                 city_list.append(tags[j])
-
     '''
     fp = open(city_path, "r", encoding="UTF-8")
     lines = fp.readlines()
